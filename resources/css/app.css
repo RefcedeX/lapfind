@@ -1,0 +1,490 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --bg:          #FAFAFC;
+    --bg-2:        #F1F3F7;
+    --surface:     #FFFFFF;
+    --surface-2:   #F8FAFD;
+    --border:      #E2E6EB;
+    --border-2:    #CBD2D9;
+    --line:        #E2E6EB;
+    --ink:         #090D14;
+    --ink-2:       #2D3542;
+    --ink-3:       #5E6877;
+    --muted:       #6B7687;
+    --accent:      #2554EB;
+    --accent-dark: #1D44C9;
+    --accent-hover:#1D44C9;
+    --accent-light:#EEF3FF;
+    --accent-tint: #EEF3FF;
+    --accent-subtle: #EEF3FF;
+    --green:       #10B981;
+    --red:         #EF4444;
+    --danger:      #EF4444;
+}
+
+.dark {
+    --bg:          #0B0F17;
+    --bg-2:        #151C28;
+    --surface:     #111827;
+    --surface-2:   #1E293B;
+    --border:      #1F2937;
+    --border-2:    #374151;
+    --line:        #1F2937;
+    --ink:         #F9FAFB;
+    --ink-2:       #E5E7EB;
+    --ink-3:       #9CA3AF;
+    --muted:       #94A3B8;
+    --accent:      #3B82F6;
+    --accent-dark: #2563EB;
+    --accent-hover:#60A5FA;
+    --accent-light:#1E293B;
+    --accent-tint: #1E293B;
+    --accent-subtle: #1E293B;
+    --green:       #10B981;
+    --red:         #EF4444;
+    --danger:      #EF4444;
+}
+
+/* ----------------------------------------
+   Smooth global theme switching
+   ---------------------------------------- */
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+    transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 300ms cubic-bezier(0.4, 0, 0.2, 1),
+                color 200ms cubic-bezier(0.4, 0, 0.2, 1),
+                fill 300ms cubic-bezier(0.4, 0, 0.2, 1),
+                stroke 300ms cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) !important;
+    transition-delay: 0ms !important;
+}
+
+/* ----------------------------------------
+   Dark mode element overrides
+   ---------------------------------------- */
+.dark .product-card,
+.dark .filter-rail,
+.dark .score-badge {
+    background: var(--surface);
+    border-color: var(--border);
+}
+
+.dark .product-card:hover {
+    border-color: var(--border-2);
+    box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.45);
+}
+
+.dark input[type="text"],
+.dark input[type="number"],
+.dark input[type="search"],
+.dark select {
+    background-color: var(--surface);
+    border-color: var(--border);
+    color: var(--ink);
+}
+
+.dark input::placeholder {
+    color: var(--ink-3);
+}
+
+.dark .bg-white {
+    background-color: var(--surface) !important;
+}
+
+.dark .bg-\[\#F8FAFC\],
+.dark .bg-\[\#FAFAFC\] {
+    background-color: var(--bg) !important;
+}
+
+.dark .bg-slate-50,
+.dark .bg-slate-50\/50,
+.dark .bg-slate-50\/80,
+.dark .bg-slate-50\/90 {
+    background-color: var(--bg-2) !important;
+}
+
+.dark .bg-slate-100,
+.dark .bg-slate-100\/70,
+.dark .bg-slate-100\/80 {
+    background-color: var(--surface-2) !important;
+}
+
+.dark .border-\[\#E2E8F0\],
+.dark .border-slate-200,
+.dark .border-slate-200\/80 {
+    border-color: var(--border) !important;
+}
+
+.dark .border-slate-300 {
+    border-color: var(--border-2) !important;
+}
+
+.dark .text-slate-900,
+.dark .text-slate-800 {
+    color: var(--ink) !important;
+}
+
+.dark .text-slate-700,
+.dark .text-slate-600 {
+    color: var(--ink-2) !important;
+}
+
+.dark .text-slate-500,
+.dark .text-slate-400 {
+    color: var(--ink-3) !important;
+}
+
+/* ----------------------------------------
+   Dark mode hover & table interactions
+   Fix: prevent white-on-white text collision on hover (Nielsen Usability & WCAG)
+   ---------------------------------------- */
+.dark .hover\:bg-slate-50:hover,
+.dark .hover\:bg-slate-100:hover,
+.dark .hover\:bg-slate-200\/50:hover,
+.dark .hover\:bg-gray-50:hover,
+.dark .hover\:bg-gray-100:hover,
+.dark .hover\:bg-\[\#F8FAFC\]:hover,
+.dark .hover\:bg-\[\#FAFAFC\]:hover {
+    background-color: var(--surface-2) !important;
+}
+
+/* Table rows hover styling in dark mode */
+.dark tr.hover\:bg-slate-50:hover,
+.dark tr.hover\:bg-slate-100:hover,
+.dark tr.hover\:bg-\[\#F8FAFC\]:hover,
+.dark tr.hover\:bg-\[\#FAFAFC\]:hover,
+.dark tr.hover\:bg-gray-50:hover {
+    background-color: var(--surface-2) !important;
+}
+
+/* Ensure child cells inside hovered rows inherit background smoothly */
+.dark tr.hover\:bg-slate-50:hover > td:not(.sticky),
+.dark tr.hover\:bg-slate-100:hover > td:not(.sticky),
+.dark tr.hover\:bg-\[\#F8FAFC\]:hover > td:not(.sticky),
+.dark tr.hover\:bg-\[\#FAFAFC\]:hover > td:not(.sticky) {
+    background-color: transparent;
+}
+
+/* Synchronize sticky left columns on row hover so there is NO visual fracture */
+tr:hover > td.sticky,
+tr:hover > th.sticky {
+    background-color: #F8FAFC !important;
+}
+
+.dark tr:hover > td.sticky,
+.dark tr:hover > th.sticky {
+    background-color: var(--surface-2) !important;
+}
+
+@layer base {
+    html {
+        background-color: var(--bg);
+        color: var(--ink);
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        font-size: 16px;
+    }
+
+    body {
+        background-color: var(--bg);
+        color: var(--ink);
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        line-height: 1.5;
+    }
+
+    :focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+        border-radius: 4px;
+    }
+
+    .tabular-nums,
+    [data-tabular] {
+        font-variant-numeric: tabular-nums;
+    }
+
+    /* Monospace font for numbers, prices, criteria codes, and mathematical specs */
+    .font-mono,
+    code,
+    .spec-value {
+        font-family: 'JetBrains Mono', 'DM Mono', 'SF Mono', 'Consolas', monospace;
+    }
+}
+
+/* ----------------------------------------
+   Layout utility & Hide Scrollbars
+   ---------------------------------------- */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+/* ----------------------------------------
+   Score Badge (Squircle Technical Badge)
+   ---------------------------------------- */
+.score-badge {
+    min-width: 48px;
+    height: 48px;
+    padding: 0 6px;
+    border-radius: 8px;
+    border: 1px solid var(--border-2);
+    background: var(--surface);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    user-select: none;
+    box-shadow: 0 1px 2px 0 rgba(9, 13, 20, 0.04);
+}
+
+.score-badge .score-num {
+    font-family: 'JetBrains Mono', 'DM Mono', monospace;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    color: var(--accent);
+}
+
+.score-badge .score-lbl {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-3);
+    margin-top: 2px;
+}
+
+/* ----------------------------------------
+   Spec row (label + value, text only)
+   ---------------------------------------- */
+.spec-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 13px;
+    line-height: 1.4;
+    padding: 7.5px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.spec-row:last-child {
+    border-bottom: none;
+}
+
+.spec-row .spec-label {
+    color: var(--ink-3);
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.spec-row .spec-val {
+    font-family: 'JetBrains Mono', 'DM Mono', monospace;
+    font-weight: 600;
+    color: var(--ink);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ----------------------------------------
+   Product Card (Anti-AI-Slop Technical Card)
+   ---------------------------------------- */
+.product-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    transition: border-color 150ms ease, box-shadow 150ms ease, transform 150ms ease;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 1px 2px 0 rgba(9, 13, 20, 0.03);
+}
+
+.product-card:hover {
+    border-color: var(--border-2);
+    box-shadow: 0 6px 16px 0 rgba(9, 13, 20, 0.06);
+}
+
+/* ----------------------------------------
+   Compare Toggle Button
+   ---------------------------------------- */
+.compare-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 7px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--ink-3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 140ms cubic-bezier(0.16, 1, 0.3, 1);
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1;
+}
+
+.compare-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-light);
+}
+
+.compare-btn:active {
+    transform: scale(0.94);
+}
+
+.compare-btn.active {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: white;
+}
+
+/* ----------------------------------------
+   Filter Rail
+   ---------------------------------------- */
+.filter-rail {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 1px 2px 0 rgba(9, 13, 20, 0.02);
+}
+
+.filter-section + .filter-section {
+    border-top: 1px solid var(--border);
+    margin-top: 20px;
+    padding-top: 20px;
+}
+
+.filter-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-3);
+    margin-bottom: 10px;
+}
+
+/* ----------------------------------------
+   Pill tags
+   ---------------------------------------- */
+.pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 13px;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--ink-2);
+    transition: all 140ms ease;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.pill:hover {
+    border-color: var(--border-2);
+    color: var(--ink);
+    background: var(--bg);
+}
+
+.pill:active {
+    transform: scale(0.97);
+}
+
+.pill.active {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: white;
+    font-weight: 600;
+}
+
+.pill.active-blue {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+    font-weight: 600;
+}
+
+/* ----------------------------------------
+   Nav link interactive pill effect
+   ---------------------------------------- */
+.nav-link {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--ink-3);
+    text-decoration: none;
+    padding: 7px 14px;
+    border-radius: 7px;
+    transition: all 140ms ease;
+    letter-spacing: -0.01em;
+}
+
+.nav-link:hover {
+    color: var(--ink);
+    background-color: var(--bg-2);
+}
+
+.nav-link.active {
+    color: var(--ink);
+    background-color: var(--bg-2);
+    font-weight: 600;
+}
+
+/* ----------------------------------------
+   Drawer nav item
+   ---------------------------------------- */
+.drawer-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    border-radius: 7px;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--ink-2);
+    text-decoration: none;
+    transition: all 140ms ease;
+    cursor: pointer;
+}
+
+.drawer-item:hover {
+    background: var(--bg);
+    color: var(--ink);
+}
+
+.drawer-item.active {
+    background: var(--bg-2);
+    color: var(--ink);
+    font-weight: 600;
+}
+
+/* ----------------------------------------
+   Motion preferences
+   ---------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
